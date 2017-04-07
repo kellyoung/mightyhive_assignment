@@ -14,3 +14,12 @@ In order to keep a report of all users and the number of times they saw their ba
 When visiting, the "/stats" route, a table is shown with the information stored in the database. Creating a database allowed me to gather information from all users/browsers opening my page, so I could have all my information in one place.
 
 ### Installation
+To run on local machine:
+
+1. Download PostgreSQL
+2. Clone or fork the repo
+3. Create and activate a virtual environment (may need to install virtualenv and pip commands)
+```
+virtualenv env
+source env/bin/activate
+```
