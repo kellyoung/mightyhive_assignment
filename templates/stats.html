@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stats</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Stats</h2>         
+        <table class="table">
+        <thead>
+          <tr>
+            <th>Session ID</th>
+            <th>Color</th>
+            <th>Count</th>
+            <th>First Visit</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+              <tr>
+                <td>{{ user.unique_id }}</td>
+                <td>{{ user.color }}</td>
+                <td>{{ user.count }}</td>
+                <td>{{ user.first_visit }}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        </div>
+    </div>
+</body>
+</html>

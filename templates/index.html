@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome!</title>
+<style type="text/css">
+    body {
+        padding-top: 20px;
+        font-family: sans-serif;
+        text-align: center;
+    }
+    img {
+        max-width: 300px;
+    }
+    #content {
+        width: 300px;
+        margin: 0 auto;
+    }
+    
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+<script>
+function chooseColor(){
+    // Choose either red or blue to determine what the user will see.
+    var randomNum = Math.floor((Math.random() * 2));
+
+    if (randomNum === 0) {
+        return "red";
+    }
+    else {
+        return "blue";
+    }
+}
+
+function createImgElement(filepath) {
+    // creates an image element when passed a file path
+    return '<img src="'+ filepath + '"/>';
+}
+
+function createInfoText(color, count) {
+    // creates the display text from the color and count stored in the document's cookie
+    return "<p>You have seen the <b>" + color + "</b> ball " + count + " time(s).</p>";
+}
+
+function showInfo(){
+    var color;
+    var count;
+    // if there is no cookie yet
+    if (document.cookie.indexOf("color") === -1) {
+        color = chooseColor();
+        count = 1;
+        document.cookie = "color=" + color;
+        document.cookie = "count=1";
+    }
+    else{
+        // if there is a cookie  
+        var cookieArray = document.cookie.split('; ');
+        color = cookieArray[0].slice(6);
+        count = parseInt(cookieArray[1].slice(6)) + 1;
+        document.cookie = "count=" + count;
+    }
+
+    // display in the front end is determined by the browser side cookie info.
+    if (color === "red") {
+       $("#content").html(createImgElement('/static/red.png') + 
+                          createInfoText('red', count)); 
+    }
+    else{
+        $("#content").html(createImgElement('/static/blue.png') + 
+                           createInfoText('blue', count));
+    }
+
+    /* pass the current cookie info to my server in order to update the database
+       this way there can be a centralized report for all people who have visited
+       this page. */
+    var params = {
+                  color: color,
+                  count: count
+
+                  };
+    // AJAX request to send to server to update database.
+    $.post("/", params, function(){
+        console.log('passed to server');
+    });
+        
+}
+</script>
+</head>
+<body onload="showInfo()">
+    <div id="content">
+    </div>
+    <h4><a href="/stats">See All Sessions Stats</a></h4>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+    body {
+        padding-top: 20px;
+        font-family: sans-serif;
+    }
+    img {
+        max-width: 300px;
+    }
+    #content {
+        width: 300px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+<script>
+function chooseColor(){
+    var randomNum = Math.floor((Math.random() * 2));
+
+    if (randomNum === 0) {
+        return "red";
+    }
+    else {
+        return "blue";
+    }
+}
+
+function createImgElement(filepath) {
+    return '<img src="'+ filepath + '"/>';
+}
+
+function createInfoText(color, count) {
+    return "<p>You have seen the <b>" + color + "</b> ball " + count + " time(s).</p>";
+}
+function showInfo(){
+    var color;
+    var count;
+    // if there is no cookie yet
+    if (document.cookie.indexOf("color") === -1) {
+        color = chooseColor();
+        count = 1;
+        document.cookie = "color=" + color;
+        document.cookie = "count=1";
+
+        console.log("first time");
+    }
+    else{
+        // if there is a cookie  
+        var cookieArray = document.cookie.split('; ');
+        color = cookieArray[0].slice(6);
+        count = parseInt(cookieArray[1].slice(6)) + 1;
+        document.cookie = "count=" + count;
+    }
+
+    console.log(document.cookie);
+
+    if (color === "red") {
+       $("#content").html(createImgElement('./static/red.png') + 
+                          createInfoText('red', count)); 
+    }
+    else{
+        $("#content").html(createImgElement('./static/blue.png') + 
+                           createInfoText('blue', count));
+    }
+
+
+        
+}
+
+</script>
+</head>
+<body onload="showInfo()">
+    <div id="content">
+    </div>
+</body>
+</html>
