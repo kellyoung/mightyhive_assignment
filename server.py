@@ -6,7 +6,8 @@ import datetime
 
 app = Flask(__name__)
 
-app.secret_key = "5fkc1066myd11263gbpj066luz61064tuk"
+secret_key = "5fkc1066myd11263gbpj066luz61064tuk"
+app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", secret_key)
 
 
 @app.route("/", methods=["POST", "GET"])
