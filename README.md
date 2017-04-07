@@ -23,3 +23,19 @@ To run on local machine:
 virtualenv env
 source env/bin/activate
 ```
+
+4. Install dependencies
+```
+pip install -r requirements.txt
+```
+
+5. Set up database
+```
+createdb users
+python model.py
+```
+
+6. Run app
+```
+python server.py
+```
