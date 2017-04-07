@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, redirect, request, session
 import jinja2
 from model import User, connect_to_db, db
@@ -56,4 +57,6 @@ def show_stats():
 if __name__ == "__main__":
     app.debug = True
     connect_to_db(app)
-    app.run(host="0.0.0.0", port=5000)
+
+    PORT = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=PORT)
